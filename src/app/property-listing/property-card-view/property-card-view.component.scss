@@ -1,0 +1,24 @@
+.main-page {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 10%;
+    background-color: #ccc;
+    justify-content: space-around;
+  }
+  .property-image{
+    height: 180px; 
+    width: 100%;
+  }
+  .property-card {
+    width: 300px;
+    height: 350px;
+    margin: 15px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .property-card-avatar {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }

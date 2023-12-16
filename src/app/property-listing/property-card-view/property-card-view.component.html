@@ -1,0 +1,17 @@
+<div class="main-page">
+  <div class="property-card-container" *ngFor="let property of listings">
+    <mat-card class="property-card">
+      <mat-card-header>
+        <mat-card-title>{{ property.title }}</mat-card-title>
+        <mat-card-subtitle>{{ property.address }}</mat-card-subtitle>
+      </mat-card-header>
+      <img class="property-image" mat-card-image [src]="property.imageUrl" alt="{{ property.title }}">
+      <mat-card-content>
+        <p>Covered Area: {{ property.coveredAreaSQFT }} sqft</p>
+        <p>Property Type: {{ property.propertyType }}</p>
+        <p>Price: {{ property.price | currency:'USD':'symbol':'1.2-2' }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<mat-paginator [pageSize]="pageSize" [pageIndex]="p - 1" [length]="listings.length" (page)="onPageChange($event)"></mat-paginator>
