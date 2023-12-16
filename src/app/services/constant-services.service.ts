@@ -5,4 +5,5 @@ import {environment} from '../Environment/environment'
 })
 export class ConstantServicesService {
   public readonly getPropertyList = environment.ApiUrl + 'listings';
+  public readonly getDataForDetailView = environment.ApiUrl + 'listings';
 }

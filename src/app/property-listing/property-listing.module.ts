@@ -12,12 +12,15 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+
 @NgModule({
   declarations: [
     PropertyListingComponent,
     PropertyListViewComponent,
     PropertyCardViewComponent,
-    PropertyDetailsComponent
+    PropertyDetailsComponent,
+    LandingPageComponent
   ],
   imports: [
     CommonModule,

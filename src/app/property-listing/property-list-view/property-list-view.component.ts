@@ -27,7 +27,6 @@ export class PropertyListViewComponent implements OnInit {
     'price',
   ];
 
-  // Object to store sorting directions for each column
   sortDirections: { [key: string]: 'asc' | 'desc' } = {};
 
   constructor(private apiServices: ApiServicesService,private router: Router){}
@@ -57,7 +56,7 @@ export class PropertyListViewComponent implements OnInit {
     this.sort.direction = this.sortDirections[column];
   }
   onRowClick(row: any) {
-    this.router.navigate(['/property-detail', row.id]);
+    this.router.navigate(['../property-detail', row.id]);
   }
 
 }

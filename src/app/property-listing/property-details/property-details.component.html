@@ -1,1 +1,18 @@
-<p>property-details works!</p>
+<!-- property-details.component.html -->
+<div class="property-detail-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ property.title }}</mat-card-title>
+        <mat-card-subtitle>{{ property.address }}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image class="property-image" [src]="property.imageUrl" alt="Property Image">
+      <mat-card-content>
+        <p><strong>Bedrooms:</strong> {{ property.beds }}</p>
+        <p><strong>Bathrooms:</strong> {{ property.bath }}</p>
+        <p><strong>Covered Area:</strong> {{ property.coveredAreaSQFT }} sqft</p>
+        <p><strong>Property Type:</strong> {{ property.propertyType }}</p>
+        <p *ngIf="property.isCommercial"><strong>Commercial Property</strong></p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

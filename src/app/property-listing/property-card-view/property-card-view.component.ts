@@ -11,12 +11,7 @@ import { ApiServicesService } from 'src/app/services/api-services.service';
 })
 export class PropertyCardViewComponent {
   listings: any;
-  p: number = 1;
-  pageSize: number = 7;
   dataSource!: MatTableDataSource<any>; 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
   displayedColumns: string[] = [
     'imageUrl',
     'title',
@@ -25,8 +20,6 @@ export class PropertyCardViewComponent {
     'propertyType',
     'price',
   ];
-
-  sortDirections: { [key: string]: 'asc' | 'desc' } = {};
 
   constructor(private apiServices: ApiServicesService){}
 
@@ -38,13 +31,7 @@ export class PropertyCardViewComponent {
       if (res) {
         this.listings = res;
         this.dataSource = new MatTableDataSource(this.listings);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
       }
     });
-  }
-
-  onPageChange(event: PageEvent) {
-    this.p = event.pageIndex + 1;
   }
 }
