@@ -19,6 +19,9 @@ export class PropertyListViewComponent implements OnInit {
   listings: any;
   p: number = 1;
   pageSize: number = 7;
+  defaultFilterPredicate = (data: any, filter: string) => true;
+  fromAmount: number | undefined;
+  toAmount: number | undefined;
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -45,6 +48,7 @@ export class PropertyListViewComponent implements OnInit {
       const values = Object.values(data).join('').toLowerCase();
       return values.includes(filter.toLowerCase());
     };
+    
   }
   getPropertyListForListView() {
     this.apiServices.getListings().subscribe((res) => {
@@ -65,7 +69,24 @@ export class PropertyListViewComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.p = event.pageIndex + 1;
   }
-
+  // 
+  applyPriceRangeFilter(fromAmount: string, toAmount: string) {
+    const fromValue = parseFloat(fromAmount);
+    const toValue = parseFloat(toAmount);
+  
+    if (!isNaN(fromValue) && !isNaN(toValue)) {
+      this.dataSource.filterPredicate = (data: any) => {
+        const price = parseFloat(data['price']);
+        return price >= fromValue && price <= toValue;
+      };
+      this.dataSource.filter = 'customPriceFilter'; // Trigger the filter
+    } else {
+      // Reset filter to the default filter predicate
+      this.dataSource.filterPredicate = this.defaultFilterPredicate;
+      this.dataSource.filter = '';
+    }
+  }
+  // 
   // common
   onRowClick(row: any) {
     this.commonServices.navigateToDetails(row.id)

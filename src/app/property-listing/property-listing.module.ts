@@ -16,7 +16,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {SearchPipe} from '../../../src/app/Pipes/search.pipe'
-
+import {FormsModule} from '@angular/forms'
 @NgModule({
   declarations: [
     PropertyListingComponent,
@@ -37,7 +37,8 @@ import {SearchPipe} from '../../../src/app/Pipes/search.pipe'
     PropertyListingRoutingModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule
   ]
 })
 export class PropertyListingModule { }
