@@ -13,6 +13,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {SearchPipe} from '../../../src/app/Pipes/search.pipe'
 
 @NgModule({
   declarations: [
@@ -20,7 +23,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     PropertyListViewComponent,
     PropertyCardViewComponent,
     PropertyDetailsComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    SearchPipe
   ],
   imports: [
     CommonModule,
@@ -31,7 +35,9 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     MatPaginatorModule,
     MatIconModule,
     PropertyListingRoutingModule,
-    MatCardModule
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class PropertyListingModule { }

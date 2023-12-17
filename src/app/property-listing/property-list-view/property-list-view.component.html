@@ -1,4 +1,9 @@
 <div class="mat-elevation-z8">
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applySearch($event)" placeholder="Search">
+    </mat-form-field>
+  </div>
   <mat-table [dataSource]="dataSource" matSort>
     <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
       <mat-header-cell *matHeaderCellDef mat-sort-header> {{ column }} </mat-header-cell>
@@ -8,4 +13,9 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClick(row)"></mat-row>
   </mat-table>
   <mat-paginator [pageSize]="pageSize" [pageIndex]="p - 1" [length]="dataSource.data.length" (page)="onPageChange($event)"></mat-paginator>
-</div>
+</div> 
+
+
+
+
+

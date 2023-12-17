@@ -5,16 +5,21 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { ApiServicesService } from 'src/app/services/api-services.service';
 import { Router } from '@angular/router';
+import { CommonServicesService } from 'src/app/services/common-services.service';
+import { SearchPipe } from '../../Pipes/search.pipe';
+
+
 @Component({
   selector: 'app-property-list-view',
   templateUrl: './property-list-view.component.html',
-  styleUrls: ['./property-list-view.component.scss']
+  styleUrls: ['./property-list-view.component.scss'],
+  providers: [SearchPipe],
 })
 export class PropertyListViewComponent implements OnInit {
   listings: any;
   p: number = 1;
   pageSize: number = 7;
-  dataSource!: MatTableDataSource<any>; 
+  dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -28,12 +33,18 @@ export class PropertyListViewComponent implements OnInit {
   ];
 
   sortDirections: { [key: string]: 'asc' | 'desc' } = {};
-
-  constructor(private apiServices: ApiServicesService,private router: Router){}
+  constructor(private apiServices: ApiServicesService, private router: Router, private commonServices: CommonServicesService) { }
 
   ngOnInit() {
     this.getPropertyListForListView();
     this.dataSource = new MatTableDataSource(this.listings);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
+    this.dataSource.filterPredicate = (data: any, filter: string) => {
+      const values = Object.values(data).join('').toLowerCase();
+      return values.includes(filter.toLowerCase());
+    };
   }
   getPropertyListForListView() {
     this.apiServices.getListings().subscribe((res) => {
@@ -45,18 +56,18 @@ export class PropertyListViewComponent implements OnInit {
       }
     });
   }
+  applySearch(event: any) {
+    const filterValue = (event?.target as HTMLInputElement)?.value || '';
+    const trimmedValue = filterValue.trim().toLowerCase();
+    this.dataSource.filter = trimmedValue;
+  }
 
   onPageChange(event: PageEvent) {
     this.p = event.pageIndex + 1;
   }
 
-  toggleSortDirection(column: string) {
-    this.sortDirections[column] = (this.sortDirections[column] === 'asc') ? 'desc' : 'asc';
-    this.sort.active = column;
-    this.sort.direction = this.sortDirections[column];
-  }
+  // common
   onRowClick(row: any) {
-    this.router.navigate(['../property-detail', row.id]);
+    this.commonServices.navigateToDetails(row.id)
   }
-
 }

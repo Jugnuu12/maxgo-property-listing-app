@@ -3,6 +3,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ApiServicesService } from 'src/app/services/api-services.service';
+import { CommonServicesService } from 'src/app/services/common-services.service';
 
 @Component({
   selector: 'app-property-card-view',
@@ -12,16 +13,7 @@ import { ApiServicesService } from 'src/app/services/api-services.service';
 export class PropertyCardViewComponent {
   listings: any;
   dataSource!: MatTableDataSource<any>; 
-  displayedColumns: string[] = [
-    'imageUrl',
-    'title',
-    'address',
-    'coveredAreaSQFT',
-    'propertyType',
-    'price',
-  ];
-
-  constructor(private apiServices: ApiServicesService){}
+  constructor(private apiServices: ApiServicesService, private commonServices : CommonServicesService){}
 
   ngOnInit() {
     this.getPropertyListForListView();
@@ -33,5 +25,8 @@ export class PropertyCardViewComponent {
         this.dataSource = new MatTableDataSource(this.listings);
       }
     });
+  }
+  onCardClick(id : number){
+    this.commonServices.navigateToDetails(id);
   }
 }

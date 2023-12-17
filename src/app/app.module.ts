@@ -6,13 +6,16 @@ import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,MatTableModule,MatPaginatorModule,
+    AppRoutingModule,MatTableModule,MatPaginatorModule,MatFormFieldModule,
     NoopAnimationsModule,HttpClientModule
   ],
   providers: [],
