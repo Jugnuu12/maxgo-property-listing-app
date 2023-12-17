@@ -13,5 +13,6 @@ Make sure you have the following installed on your machine:
 git clone https://github.com/Jugnuu12/maxgo-property-listing-app.git
 cd maxgo-property-listing-app
 npm install --force
+
 1->> On one terminal run commnad --> json-server --watch db.json --port 3000
 2->> On Second terminal run command --> ng serve

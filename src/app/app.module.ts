@@ -9,13 +9,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
-
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
-    BrowserModule,MatSelectModule,
+    BrowserModule,MatSelectModule,  
     AppRoutingModule,MatTableModule,MatPaginatorModule,MatFormFieldModule,
     NoopAnimationsModule,HttpClientModule
   ],
