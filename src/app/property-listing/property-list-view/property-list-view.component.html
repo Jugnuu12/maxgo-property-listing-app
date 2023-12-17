@@ -12,9 +12,20 @@
       <mat-form-field>
         <input matInput #toAmountInput placeholder="To Amount" type="number">
       </mat-form-field>
-      <button mat-raised-button color="primary" (click)="applyPriceRangeFilter(fromAmountInput.value, toAmountInput.value)">
+      <button mat-raised-button color="primary" class="range-button" (click)="applyPriceRangeFilter(fromAmountInput.value, toAmountInput.value)">
         Apply Price Range
       </button>
+    </div>
+    <div class="example-header-sort">
+      <mat-form-field>
+        <mat-label>Sort By</mat-label>
+        <mat-select (change)="applySort($event)">
+          <mat-option *ngFor="let column of displayedColumns" [value]="column">
+            {{ column }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-checkbox [(ngModel)]="sortDirection">Asc</mat-checkbox>
     </div>
   </div>
   <mat-table [dataSource]="dataSource" matSort>

@@ -14,7 +14,6 @@
   
   .example-header {
     min-height: 64px;
-    padding: 8px 24px 0;
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -24,7 +23,14 @@
     font-size: 14px;
     width: 100%;
   }
-  
+  .range-button{
+    height: 50px;
+    border-radius: 5px;
+    border: 0px;
+    background-color: darkgoldenrod;
+    color: black;
+    font-size: 14px;
+  }
   .mat-table {
     overflow: auto;
     max-height: 500px;

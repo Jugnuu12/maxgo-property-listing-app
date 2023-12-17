@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { ApiServicesService } from 'src/app/services/api-services.service';
 import { Router } from '@angular/router';
 import { CommonServicesService } from 'src/app/services/common-services.service';
@@ -25,7 +25,7 @@ export class PropertyListViewComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
+  sortDirection: boolean = true;
   displayedColumns: string[] = [
     'id',
     'title',
@@ -48,8 +48,28 @@ export class PropertyListViewComponent implements OnInit {
       const values = Object.values(data).join('').toLowerCase();
       return values.includes(filter.toLowerCase());
     };
-    
+    this.sort.sortChange.subscribe(() => this.dataSource.sort = this.sort);
+    this.sort.sort({ id: 'price', start: 'asc', disableClear: false });
   }
+  customPriceSort(data: any[], sort: Sort): any[] {
+    if (!sort.active || sort.direction === '') {
+      return data;
+    }
+    return data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      const priceA = parseFloat(a['price']);
+      const priceB = parseFloat(b['price']);
+
+      return (priceA - priceB) * (isAsc ? 1 : -1);
+    });
+  }
+  applySort(event: any) {
+    const activeSortColumn = event.active;
+    const direction = this.sortDirection ? 'asc' : 'desc';
+    this.dataSource.data = this.customPriceSort(this.dataSource.data.slice(), { active: activeSortColumn, direction });
+  }
+
+
   getPropertyListForListView() {
     this.apiServices.getListings().subscribe((res) => {
       if (res) {
@@ -69,25 +89,21 @@ export class PropertyListViewComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.p = event.pageIndex + 1;
   }
-  // 
   applyPriceRangeFilter(fromAmount: string, toAmount: string) {
     const fromValue = parseFloat(fromAmount);
     const toValue = parseFloat(toAmount);
-  
+
     if (!isNaN(fromValue) && !isNaN(toValue)) {
       this.dataSource.filterPredicate = (data: any) => {
         const price = parseFloat(data['price']);
         return price >= fromValue && price <= toValue;
       };
-      this.dataSource.filter = 'customPriceFilter'; // Trigger the filter
+      this.dataSource.filter = 'customPriceFilter';
     } else {
-      // Reset filter to the default filter predicate
       this.dataSource.filterPredicate = this.defaultFilterPredicate;
       this.dataSource.filter = '';
     }
   }
-  // 
-  // common
   onRowClick(row: any) {
     this.commonServices.navigateToDetails(row.id)
   }

@@ -7,6 +7,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -14,7 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     AppComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule,MatSelectModule,
     AppRoutingModule,MatTableModule,MatPaginatorModule,MatFormFieldModule,
     NoopAnimationsModule,HttpClientModule
   ],
